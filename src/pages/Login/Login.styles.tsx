@@ -38,3 +38,7 @@ export const ErrorMessage = styled.p`
   font-size: 0.9rem;
   margin-top: 0.5rem;
 `;
+
+export const Loading = styled.img`
+  width: 7rem;
+`;
