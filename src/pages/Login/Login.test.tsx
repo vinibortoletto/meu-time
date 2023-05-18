@@ -21,7 +21,7 @@ describe('Login | page | integration test', () => {
       name: /meu time/i,
     });
 
-    const input = screen.getByLabelText(/api key:/i);
+    const input = screen.getByRole('textbox');
 
     const button = screen.getByRole('button', {
       name: /entrar/i,
@@ -38,7 +38,7 @@ describe('Login | page | integration test', () => {
     (fetchFootballData as jest.Mock).mockResolvedValueOnce(invalidKeyResponse);
 
     const apiKey = 'wrong api key';
-    userEvent.type(screen.getByLabelText(/api key:/i), apiKey);
+    userEvent.type(screen.getByRole('textbox'), apiKey);
 
     const button = screen.getByRole('button', {
       name: /entrar/i,
@@ -62,7 +62,7 @@ describe('Login | page | integration test', () => {
 
     (fetchFootballData as jest.Mock).mockResolvedValueOnce(validKeyResponse);
     const apiKey = 'api key';
-    userEvent.type(screen.getByLabelText(/api key:/i), apiKey);
+    userEvent.type(screen.getByRole('textbox'), apiKey);
     const button = screen.getByRole('button', {
       name: /entrar/i,
     });
