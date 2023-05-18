@@ -1462,6 +1462,11 @@
   dependencies:
     "@types/node" "*"
 
+"@types/history@^4.7.11":
+  "integrity" "sha512-qjDJRrmvBMiTx+jyLxvLfJU7UznFuokDv4f3WRuriHKERccVpFU+8XMQUAbDzoiJCsmexxRExQeMwwCdamSKDA=="
+  "resolved" "https://registry.npmjs.org/@types/history/-/history-4.7.11.tgz"
+  "version" "4.7.11"
+
 "@types/inquirer@^8.2.1":
   "integrity" "sha512-ZlBqD+8WIVNy3KIVkl+Qne6bGLW2erwN0GJXY9Ri/9EMbyupee3xw3H0Mmv5kJoLyNpfd/oHlwKxO0DUDH7yWA=="
   "resolved" "https://registry.npmjs.org/@types/inquirer/-/inquirer-8.2.3.tgz"
@@ -1538,6 +1543,23 @@
   "resolved" "https://registry.npmjs.org/@types/react-dom/-/react-dom-18.0.11.tgz"
   "version" "18.0.11"
   dependencies:
+    "@types/react" "*"
+
+"@types/react-router-dom@^5.3.3":
+  "integrity" "sha512-kpqnYK4wcdm5UaWI3fLcELopqLrHgLqNsdpHauzlQktfkHL3npOSwtj1Uz9oKBAzs7lFtVkV8j83voAz2D8fhw=="
+  "resolved" "https://registry.npmjs.org/@types/react-router-dom/-/react-router-dom-5.3.3.tgz"
+  "version" "5.3.3"
+  dependencies:
+    "@types/history" "^4.7.11"
+    "@types/react" "*"
+    "@types/react-router" "*"
+
+"@types/react-router@*":
+  "integrity" "sha512-jGjmu/ZqS7FjSH6owMcD5qpq19+1RS9DeVRqfl1FeBMxTDQAGwlMWOcs52NDoXaNKyG3d1cYQFMs9rCrb88o9Q=="
+  "resolved" "https://registry.npmjs.org/@types/react-router/-/react-router-5.1.20.tgz"
+  "version" "5.1.20"
+  dependencies:
+    "@types/history" "^4.7.11"
     "@types/react" "*"
 
 "@types/react@*", "@types/react@^18.0.35":
@@ -1867,6 +1889,15 @@
   "integrity" "sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q=="
   "resolved" "https://registry.npmjs.org/asynckit/-/asynckit-0.4.0.tgz"
   "version" "0.4.0"
+
+"axios@^1.4.0":
+  "integrity" "sha512-S4XCWMEmzvo64T9GfvQDOXgYRDJ/wsSZc7Jvdgx5u1sd0JwsuPLqb3SYmusag+edF6ziyMensPVqLTSc1PiSEA=="
+  "resolved" "https://registry.npmjs.org/axios/-/axios-1.4.0.tgz"
+  "version" "1.4.0"
+  dependencies:
+    "follow-redirects" "^1.15.0"
+    "form-data" "^4.0.0"
+    "proxy-from-env" "^1.1.0"
 
 "babel-jest@^29.5.0":
   "integrity" "sha512-mA4eCDh5mSo2EcA9xQjVTpmbbNk32Zb3Q3QFQsNhaK56Q+yoXowzFodLux30HRgyOho5rsQ6B0P9QpMkvvnJ0Q=="
@@ -2909,6 +2940,11 @@
   "integrity" "sha512-5nqDSxl8nn5BSNxyR3n4I6eDmbolI6WT+QqR547RwxQapgjQBmtktdP+HTBb/a/zLsbzERTONyUB5pefh5TtjQ=="
   "resolved" "https://registry.npmjs.org/flatted/-/flatted-3.2.7.tgz"
   "version" "3.2.7"
+
+"follow-redirects@^1.15.0":
+  "integrity" "sha512-VQLG33o04KaQ8uYi2tVNbdrWp1QWxNNea+nmIB4EVM28v0hmP17z7aG1+wAkNzVq4KeXTq3221ye5qTJP91JwA=="
+  "resolved" "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.15.2.tgz"
+  "version" "1.15.2"
 
 "for-in@^1.0.1":
   "integrity" "sha512-7EwmXrOjyL+ChxMhmG5lnW9MPt1aIeZEwKhQzoBUdTV0N3zuwWDZYVJatDvZ2OyzPUvdIAZDsCetk3coyMfcnQ=="
@@ -4756,6 +4792,11 @@
     "loose-envify" "^1.4.0"
     "object-assign" "^4.1.1"
     "react-is" "^16.13.1"
+
+"proxy-from-env@^1.1.0":
+  "integrity" "sha512-D+zkORCbA9f1tdWRK0RaCR3GPv50cMxcrz4X8k5LTSUD1Dkw47mKJEZQNunItRTkWwgtaUSo1RVFRIG9ZXiFYg=="
+  "resolved" "https://registry.npmjs.org/proxy-from-env/-/proxy-from-env-1.1.0.tgz"
+  "version" "1.1.0"
 
 "psl@^1.1.33":
   "integrity" "sha512-E/ZsdU4HLs/68gYzgGTkMicWTLPdAftJLfJFlLUAAKZGkStNU72sZjT66SnMDVOfOWY/YAoiD7Jxa9iHvngcag=="
