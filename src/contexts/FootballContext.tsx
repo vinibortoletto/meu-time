@@ -14,6 +14,7 @@ interface IContext {
   getSeasons: () => void;
   seasons: number[];
   getLocalCountries: () => void;
+  getLocalSeasons: () => void;
 }
 
 const defaultContext: IContext = {
@@ -24,6 +25,7 @@ const defaultContext: IContext = {
   getSeasons: () => console.log(''),
   seasons: [],
   getLocalCountries: () => console.log(''),
+  getLocalSeasons: () => console.log(''),
 };
 
 export const FootballContext = createContext<IContext>(defaultContext);
@@ -53,6 +55,15 @@ export function FootballProvider({ children }: IProps) {
     setSeasons(newSeasons as unknown as number[]);
   }, [apiKey]);
 
+  const getLocalSeasons = useCallback(() => {
+    let localSeasons = localStorage.getItem('seasons');
+
+    if (localSeasons) {
+      localSeasons = JSON.parse(localSeasons);
+      setSeasons(localSeasons as unknown as number[]);
+    }
+  }, []);
+
   const value: IContext = useMemo(
     () => ({
       countries,
@@ -62,6 +73,7 @@ export function FootballProvider({ children }: IProps) {
       getSeasons,
       seasons,
       getLocalCountries,
+      getLocalSeasons,
     }),
     [
       countries,
@@ -71,6 +83,7 @@ export function FootballProvider({ children }: IProps) {
       getSeasons,
       seasons,
       getLocalCountries,
+      getLocalSeasons,
     ]
   );
 
