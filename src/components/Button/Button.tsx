@@ -11,7 +11,7 @@ export default function Button(props: Props) {
   const { children, type, disabled } = props;
 
   return (
-    <S.Container>
+    <S.Container disabled={disabled}>
       <button type={type} disabled={disabled}>
         {children}
       </button>
