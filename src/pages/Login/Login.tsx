@@ -1,5 +1,5 @@
 import { ICountry, IResponse } from 'interfaces';
-import { FormEvent, useContext, useState } from 'react';
+import { ChangeEvent, FormEvent, useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Button } from '../../components/Button';
 import { FootballContext } from '../../contexts/FootballContext';
@@ -12,8 +12,14 @@ export default function Login() {
   const history = useHistory();
   const { setCountries } = useContext(FootballContext);
 
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setApiKey(e.target.value);
+    setErrorMessage(false);
+  };
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setErrorMessage(false);
 
     const response: IResponse | undefined = await fetchFootballData(
       apiKey,
@@ -26,6 +32,7 @@ export default function Login() {
     }
 
     setCountries(response?.data.response as ICountry[]);
+    setApiKey('');
     history.push('/busca-time');
   };
 
@@ -41,7 +48,7 @@ export default function Login() {
             type="text"
             placeholder="API key"
             value={apiKey}
-            onChange={(e) => setApiKey(e.target.value)}
+            onChange={handleInputChange}
           />
         </S.TextField>
 
@@ -50,7 +57,11 @@ export default function Login() {
         </Button>
       </S.Form>
 
-      {errorMessage && <S.ErrorMessage>Chave inválida</S.ErrorMessage>}
+      {errorMessage ? (
+        <S.ErrorMessage>Chave inválida</S.ErrorMessage>
+      ) : (
+        <S.ErrorMessage>&nbsp;</S.ErrorMessage>
+      )}
     </S.Container>
   );
 }
