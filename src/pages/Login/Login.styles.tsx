@@ -13,6 +13,7 @@ export const Title = styled.h1`
   font-size: 2rem;
   font-weight: bold;
   margin-bottom: 1rem;
+  color: ${vars.color.green};
 `;
 
 export const TextField = styled.div`
