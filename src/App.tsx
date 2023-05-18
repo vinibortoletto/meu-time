@@ -1,3 +1,12 @@
+import { FootballProvider } from './contexts/FootballContext';
+import { Login } from './pages/Login';
+
 export default function App() {
-  return <div>React JavaScript Boilerplate</div>;
+  return (
+    <FootballProvider>
+      <div>
+        <Login />
+      </div>
+    </FootballProvider>
+  );
 }
