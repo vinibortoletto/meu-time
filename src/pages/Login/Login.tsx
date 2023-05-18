@@ -1,8 +1,10 @@
 import { ICountry, IResponse } from 'interfaces';
 import { FormEvent, useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { Button } from '../../components/Button';
 import { FootballContext } from '../../contexts/FootballContext';
 import { fetchFootballData } from '../../utils';
+import * as S from './Login.styles';
 
 export default function Login() {
   const [apiKey, setApiKey] = useState('');
@@ -28,26 +30,27 @@ export default function Login() {
   };
 
   return (
-    <div>
-      <h1>Meu Time</h1>
+    <S.Container>
+      <S.Title>Meu Time</S.Title>
 
-      <form onSubmit={handleSubmit}>
-        <label>
-          API key:
+      <S.Form onSubmit={handleSubmit}>
+        <S.TextField>
+          <label>API key:</label>
+
           <input
             type="text"
             placeholder="API key"
             value={apiKey}
             onChange={(e) => setApiKey(e.target.value)}
           />
-        </label>
+        </S.TextField>
 
-        <button type="submit" disabled={apiKey === ''}>
+        <Button type="submit" disabled={apiKey === ''}>
           Entrar
-        </button>
-      </form>
+        </Button>
+      </S.Form>
 
-      {errorMessage && <p>Chave inválida</p>}
-    </div>
+      {errorMessage && <S.ErrorMessage>Chave inválida</S.ErrorMessage>}
+    </S.Container>
   );
 }
