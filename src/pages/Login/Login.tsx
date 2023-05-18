@@ -18,13 +18,13 @@ export default function Login() {
       'countries'
     );
 
-    if (response?.data.errors) {
+    if (response?.data.errors.token) {
       setErrorMessage(true);
       return;
     }
 
     setCountries(response?.data.response as ICountry[]);
-    history.push('/times');
+    history.push('/busca-time');
   };
 
   return (
