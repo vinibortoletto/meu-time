@@ -1,6 +1,11 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { invalidKeyResponse } from '../../tests/mocks/fetchFootballData.mock';
+import { MemoryRouter } from 'react-router-dom';
+import App from '../../App';
+import {
+  invalidKeyResponse,
+  validKeyResponse,
+} from '../../tests/mocks/fetchFootballData.mock';
 import { fetchFootballData } from '../../utils';
 import Login from './Login';
 
@@ -46,5 +51,23 @@ describe('Login | page | integration test', () => {
 
     const errorMessage = await screen.findByText(/Chave inválida/i);
     expect(errorMessage).toBeInTheDocument();
+  });
+
+  it('should login with success', async () => {
+    render(
+      <MemoryRouter initialEntries={['/']}>
+        <App />
+      </MemoryRouter>
+    );
+
+    (fetchFootballData as jest.Mock).mockResolvedValueOnce(validKeyResponse);
+    const apiKey = 'api key';
+    userEvent.type(screen.getByLabelText(/api key:/i), apiKey);
+    const button = screen.getByRole('button', {
+      name: /entrar/i,
+    });
+    userEvent.click(button);
+
+    expect(await screen.findByText('Times')).toBeInTheDocument();
   });
 });
