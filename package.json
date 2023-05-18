@@ -20,11 +20,12 @@
     "generate:hook": "plop hook --plopfile ./generators/plopfile.cjs"
   },
   "dependencies": {
-    "@testing-library/user-event": "^14.4.3",
+    "@testing-library/user-event": "^13.5.0",
     "axios": "^1.4.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^5.3.3"
+    "react-router-dom": "^5.3.3",
+    "user-event": "file:testing-library/user-event@13.5.0"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.21.4",
