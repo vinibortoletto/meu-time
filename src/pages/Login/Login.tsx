@@ -12,6 +12,7 @@ export default function Login() {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     const response: IResponse | undefined = await fetchFootballData(
       apiKey,
       'countries'
@@ -36,6 +37,7 @@ export default function Login() {
           <input
             type="text"
             placeholder="API key"
+            value={apiKey}
             onChange={(e) => setApiKey(e.target.value)}
           />
         </label>
