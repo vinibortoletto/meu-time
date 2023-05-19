@@ -39,6 +39,7 @@ export default function Login() {
 
     getSeasons();
 
+    localStorage.setItem('key', JSON.stringify(apiKey));
     const newCountries = response?.data.response;
     localStorage.setItem('countries', JSON.stringify(newCountries));
     setCountries(newCountries as ICountry[]);
