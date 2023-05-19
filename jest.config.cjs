@@ -5,11 +5,12 @@ module.exports = {
     'src/**/*.ts(x)?',
     '!src/**/index.ts',
     '!src/main.tsx',
-    '!src/vite-env.d.ts'
+    '!src/vite-env.d.ts',
   ],
   modulePaths: ['<rootDir>/src/'],
   setupFilesAfterEnv: ['<rootDir>/.jest/setup.ts'],
   transform: {
-    '^.+\\.tsx?$': 'babel-jest'
-  }
-}
+    '^.+\\.tsx?$': 'babel-jest',
+    '.+\\.(css|scss|png|jpg|svg|webp)$': 'jest-transform-stub',
+  },
+};
