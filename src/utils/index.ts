@@ -1,1 +1,4 @@
-export { default as fetchFootballData } from './fetchFootballData';
+export {
+  fetchFootballData,
+  fetchLeagueByCountryAndSeason,
+} from './fetchFootballData';
