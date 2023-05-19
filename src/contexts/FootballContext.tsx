@@ -19,13 +19,13 @@ interface IContext {
 
 const defaultContext: IContext = {
   countries: [],
-  setCountries: (countries: ICountry[]) => console.log(countries),
+  setCountries: () => {},
   apiKey: '',
-  setApiKey: (apiKey: string) => console.log(apiKey),
-  getSeasons: () => console.log(''),
+  setApiKey: () => {},
+  getSeasons: () => {},
   seasons: [],
-  getLocalCountries: () => console.log(''),
-  getLocalSeasons: () => console.log(''),
+  getLocalCountries: () => {},
+  getLocalSeasons: () => {},
 };
 
 export const FootballContext = createContext<IContext>(defaultContext);
