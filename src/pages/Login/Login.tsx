@@ -8,9 +8,9 @@ import { fetchFootballData } from '../../utils';
 import * as S from './Login.styles';
 
 export default function Login() {
-  const [apiKey, setApiKey] = useState('');
   const [errorMessage, setErrorMessage] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const { apiKey, setApiKey, getSeasons } = useContext(FootballContext);
 
   const history = useHistory();
   const { setCountries } = useContext(FootballContext);
@@ -37,7 +37,11 @@ export default function Login() {
       return;
     }
 
-    setCountries(response?.data.response as ICountry[]);
+    getSeasons();
+
+    const newCountries = response?.data.response;
+    localStorage.setItem('countries', JSON.stringify(newCountries));
+    setCountries(newCountries as ICountry[]);
     setApiKey('');
     history.push('/busca-time');
   };
