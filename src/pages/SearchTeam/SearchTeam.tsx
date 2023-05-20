@@ -1,7 +1,11 @@
-import { ChangeEvent, useContext, useEffect, useState } from 'react';
+import { ChangeEvent, FormEvent, useContext, useEffect } from 'react';
+import { Button } from '../../components/Button';
+import { TeamStatistics } from '../../components/TeamStatistics';
 import { FootballContext } from '../../contexts/FootballContext';
-import { ICountry } from '../../interfaces';
+import { ICountry, ITeam } from '../../interfaces';
 import ILeague from '../../interfaces/ILeague';
+import { mockCountries, mockLeagues, mockSeasons } from '../../tests/mocks';
+import { mockTeams } from '../../tests/mocks/teams.mock';
 
 export default function SearchTeam() {
   const {
@@ -14,22 +18,53 @@ export default function SearchTeam() {
     getLocalCountries,
     getLocalSeasons,
     getLeagues,
+    setLeague,
     leagues,
+    league,
+    getTeams,
+    teams,
+    team,
+    setTeam,
+    getTeamStatistics,
   } = useContext(FootballContext);
 
   const handleSeasonChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    setSeason(Number(e.target.value));
-    getLeagues();
+    const season = Number(e.target.value);
+    setSeason(season);
+    getLeagues(season);
   };
 
-  useEffect(() => {
-    getLocalCountries();
-    getLocalSeasons();
-  }, [getLocalCountries, getLocalSeasons]);
+  const handleLeagueChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    const leagueName = e.target.value;
+    const leagueId = leagues.find(({ league }) => league.name === leagueName)
+      ?.league.id;
+
+    if (leagueId) setLeague(leagueId);
+
+    getTeams(Number(leagueId));
+  };
+
+  const handleTeamChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    const teamName = e.target.value;
+    const teamId = teams.find(({ team }) => team.name === teamName)?.team.id;
+
+    if (teamId) setTeam(teamId);
+    console.log(teamId);
+  };
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    getTeamStatistics(team);
+  };
+
+  // useEffect(() => {
+  //   getLocalCountries();
+  //   getLocalSeasons();
+  // }, [getLocalCountries, getLocalSeasons, getTeams]);
 
   return (
     <div>
-      <form>
+      <form onSubmit={handleSubmit}>
         <select
           data-testid="select-countries"
           name="countries"
@@ -38,7 +73,7 @@ export default function SearchTeam() {
         >
           <option>País</option>
 
-          {countries.map((country: ICountry) => (
+          {mockCountries.map((country: ICountry) => (
             <option key={country.name} value={country.name}>
               {country.name}
             </option>
@@ -54,7 +89,7 @@ export default function SearchTeam() {
         >
           <option>Temporada</option>
 
-          {seasons.map((season: number) => (
+          {mockSeasons.map((season: number) => (
             <option key={season} value={season}>
               {season}
             </option>
@@ -65,14 +100,38 @@ export default function SearchTeam() {
           data-testid="select-leagues"
           name="leagues"
           disabled={season === 0}
+          onChange={handleLeagueChange}
+          defaultValue={'Liga'}
         >
-          {leagues.map(({ league }: ILeague) => (
+          <option>Liga</option>
+
+          {mockLeagues.map(({ league }: ILeague) => (
             <option key={league.id} value={league.name}>
               {league.name}
             </option>
           ))}
         </select>
+
+        <select
+          data-testid="select-teams"
+          name="teams"
+          disabled={league === 0}
+          onChange={handleTeamChange}
+          defaultValue={'Time'}
+        >
+          <option>Time</option>
+
+          {mockTeams.map(({ team }: ITeam) => (
+            <option key={team.name}>{team.name}</option>
+          ))}
+        </select>
+
+        <Button disabled={team === 0} type="submit">
+          Buscar
+        </Button>
       </form>
+
+      <TeamStatistics />
     </div>
   );
 }
