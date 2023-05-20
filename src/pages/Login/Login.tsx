@@ -43,7 +43,6 @@ export default function Login() {
     const newCountries = response?.data.response;
     localStorage.setItem('countries', JSON.stringify(newCountries));
     setCountries(newCountries as ICountry[]);
-    setApiKey('');
     history.push('/busca-time');
   };
 
