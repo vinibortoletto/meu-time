@@ -48,3 +48,61 @@ export async function fetchLeagueByCountryAndSeason(
     console.log(error);
   }
 }
+
+export async function fetchTeams(
+  apiKey: string,
+  country: string,
+  season: number,
+  league: number
+): Promise<IResponse | undefined> {
+  const config = {
+    method: 'get',
+    url: `https://v3.football.api-sports.io/teams`,
+    params: {
+      country: country,
+      season: season,
+      league: league,
+    },
+    headers: {
+      'x-rapidapi-key': apiKey,
+      'x-rapidapi-host': 'v3.football.api-sports.io',
+    },
+  };
+
+  try {
+    const response: IResponse = await axios(config);
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function fetchTeamStatistics(
+  apiKey: string,
+  season: number,
+  league: number,
+  team: number
+): Promise<IResponse | undefined> {
+  const config = {
+    method: 'get',
+    url: `https://v3.football.api-sports.io/teams/statistics`,
+    params: {
+      season: season,
+      league: league,
+      team: team,
+    },
+    headers: {
+      'x-rapidapi-key': apiKey,
+      'x-rapidapi-host': 'v3.football.api-sports.io',
+    },
+  };
+
+  try {
+    const response: IResponse = await axios(config);
+    console.log(response);
+
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+}
