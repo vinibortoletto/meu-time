@@ -5,10 +5,15 @@ import React, {
   useMemo,
   useState,
 } from 'react';
-import { ICountry, IResponse } from '../interfaces';
+import { ICountry, IResponse, ITeam } from '../interfaces';
 import ILeague from '../interfaces/ILeague';
+import ITeamStatistics from '../interfaces/ITeamStatistics';
 import { fetchFootballData } from '../utils';
-import { fetchLeagueByCountryAndSeason } from '../utils/fetchFootballData';
+import {
+  fetchLeagueByCountryAndSeason,
+  fetchTeamStatistics,
+  fetchTeams,
+} from '../utils/fetchFootballData';
 
 interface IProps {
   children: React.ReactNode;
@@ -27,9 +32,19 @@ interface IContext {
   setSeason: (season: number) => void;
   getLocalCountries: () => void;
   getLocalSeasons: () => void;
-  getLeagues: () => void;
+  getLeagues: (season: number) => void;
   leagues: ILeague[];
   setLeagues: (leagues: ILeague[]) => void;
+  league: number;
+  setLeague: (league: number) => void;
+  getTeams: (league: number) => void;
+  teams: ITeam[];
+  setTeams: (teams: ITeam[]) => void;
+  team: number;
+  setTeam: (team: number) => void;
+  teamStatistics: ITeamStatistics | undefined;
+  setTeamStatistics: (teamStatistics: ITeamStatistics) => void;
+  getTeamStatistics: (team: number) => void;
 }
 
 const defaultContext: IContext = {
@@ -48,6 +63,16 @@ const defaultContext: IContext = {
   getLeagues: () => {},
   leagues: [],
   setLeagues: () => {},
+  league: 0,
+  setLeague: () => {},
+  getTeams: () => {},
+  teams: [],
+  setTeams: () => {},
+  team: 0,
+  setTeam: () => {},
+  teamStatistics: undefined,
+  setTeamStatistics: () => {},
+  getTeamStatistics: () => {},
 };
 
 export const FootballContext = createContext<IContext>(defaultContext);
@@ -58,7 +83,11 @@ export function FootballProvider({ children }: IProps) {
   const [seasons, setSeasons] = useState<number[]>([]);
   const [season, setSeason] = useState(0);
   const [leagues, setLeagues] = useState<ILeague[]>([]);
+  const [league, setLeague] = useState(0);
   const [apiKey, setApiKey] = useState('');
+  const [teams, setTeams] = useState<ITeam[]>([]);
+  const [team, setTeam] = useState(0);
+  const [teamStatistics, setTeamStatistics] = useState<ITeamStatistics>();
 
   const getLocalKey = useCallback(() => {
     let localKey = localStorage.getItem('key');
@@ -98,21 +127,50 @@ export function FootballProvider({ children }: IProps) {
     }
   }, []);
 
-  const getLeagues = useCallback(async () => {
-    const response: IResponse | undefined = await fetchLeagueByCountryAndSeason(
-      apiKey,
-      country,
-      season
-    );
+  const getLeagues = useCallback(
+    async (season: number) => {
+      const response: IResponse | undefined =
+        await fetchLeagueByCountryAndSeason(apiKey, country, season);
 
-    const newLeagues = response?.data.response;
-    localStorage.setItem('leagues', JSON.stringify(newLeagues));
-    setLeagues(newLeagues as unknown as ILeague[]);
-  }, [apiKey, country, season]);
+      const newLeagues = response?.data.response;
+      setLeagues(newLeagues as unknown as ILeague[]);
+    },
+    [apiKey, country]
+  );
 
-  useEffect(() => {
-    getLocalKey();
-  }, [getLocalKey]);
+  // useEffect(() => {
+  //   getLocalKey();
+  // }, [getLocalKey]);
+
+  const getTeams = useCallback(
+    async (league: number) => {
+      const response: IResponse | undefined = await fetchTeams(
+        apiKey,
+        country,
+        season,
+        league
+      );
+
+      const newTeams = response?.data.response;
+      setTeams(newTeams as unknown as ITeam[]);
+    },
+    [apiKey, country, season]
+  );
+
+  const getTeamStatistics = useCallback(
+    async (team: number) => {
+      const response: IResponse | undefined = await fetchTeamStatistics(
+        apiKey,
+        season,
+        league,
+        team
+      );
+
+      const newTeamStatistics = response?.data.response;
+      setTeamStatistics(newTeamStatistics as unknown as ITeamStatistics);
+    },
+    [apiKey, season, league]
+  );
 
   const value: IContext = useMemo(
     () => ({
@@ -131,6 +189,16 @@ export function FootballProvider({ children }: IProps) {
       getLeagues,
       leagues,
       setLeagues,
+      league,
+      setLeague,
+      getTeams,
+      teams,
+      setTeams,
+      team,
+      setTeam,
+      teamStatistics,
+      setTeamStatistics,
+      getTeamStatistics,
     }),
     [
       countries,
@@ -148,6 +216,16 @@ export function FootballProvider({ children }: IProps) {
       getLeagues,
       leagues,
       setLeagues,
+      league,
+      setLeague,
+      getTeams,
+      teams,
+      setTeams,
+      team,
+      setTeam,
+      teamStatistics,
+      setTeamStatistics,
+      getTeamStatistics,
     ]
   );
 
