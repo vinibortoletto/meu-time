@@ -1,4 +1,11 @@
-import { ChangeEvent, FormEvent, useContext, useEffect } from 'react';
+import {
+  ChangeEvent,
+  FormEvent,
+  useCallback,
+  useContext,
+  useEffect,
+} from 'react';
+import { useHistory } from 'react-router-dom';
 import { Button } from '../../components/Button';
 import { Header } from '../../components/Header';
 import { Loading } from '../../components/Loading';
@@ -35,6 +42,7 @@ export default function SearchTeam() {
     getLocalTeamStatistics,
     isLoading,
   } = useContext(FootballContext);
+  const history = useHistory();
 
   const handleSeasonChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const season = Number(e.target.value);
@@ -70,7 +78,7 @@ export default function SearchTeam() {
     setTeam(0);
   };
 
-  useEffect(() => {
+  const getLocalData = useCallback(() => {
     getLocalCountries();
     getLocalSeasons();
     getLocalLeagues();
@@ -85,6 +93,16 @@ export default function SearchTeam() {
     getLocalPlayers,
     getLocalTeamStatistics,
   ]);
+
+  const redirectUserIfNotLogged = useCallback(() => {
+    const localApiKey = localStorage.getItem('key');
+    if (!localApiKey) history.push('/');
+  }, [history]);
+
+  useEffect(() => {
+    getLocalData();
+    redirectUserIfNotLogged();
+  }, [getLocalData, redirectUserIfNotLogged]);
 
   return (
     <div>
