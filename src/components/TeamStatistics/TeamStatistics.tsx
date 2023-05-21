@@ -50,24 +50,26 @@ export default function TeamStatistics() {
 
       <div>
         <Title>Resultados</Title>
-        <table>
-          <thead>
-            <tr>
-              <th>Jogos</th>
-              <th>Vitórias</th>
-              <th>Derrotas</th>
-              <th>Empates</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{mockTeamStatistics.fixtures.played.total}</td>
-              <td>{mockTeamStatistics.fixtures.wins.total}</td>
-              <td>{mockTeamStatistics.fixtures.loses.total}</td>
-              <td>{mockTeamStatistics.fixtures.draws.total}</td>
-            </tr>
-          </tbody>
-        </table>
+        <S.Table>
+          <table>
+            <thead>
+              <tr>
+                <th>Jogos</th>
+                <th>Vitórias</th>
+                <th>Derrotas</th>
+                <th>Empates</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{mockTeamStatistics.fixtures.played.total}</td>
+                <td>{mockTeamStatistics.fixtures.wins.total}</td>
+                <td>{mockTeamStatistics.fixtures.loses.total}</td>
+                <td>{mockTeamStatistics.fixtures.draws.total}</td>
+              </tr>
+            </tbody>
+          </table>
+        </S.Table>
       </div>
 
       <S.Chart>
