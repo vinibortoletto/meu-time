@@ -1,18 +1,20 @@
+import { useContext, useEffect } from 'react';
 import Chart from 'react-apexcharts';
+import { FootballContext } from '../../contexts/FootballContext';
 import { vars } from '../../styles/variables';
-import { mockPlayers } from '../../tests/mocks';
-import { mockTeamStatistics } from '../../tests/mocks/teamStatistics.mock';
 import { Player } from '../Player';
 import { Title } from '../Title';
 import * as S from './TeamStatistics.styles';
 
 export default function TeamStatistics() {
+  const { players, teamStatistics } = useContext(FootballContext);
+
   const options = {
     chart: {
       id: 'basic-bar',
     },
     xaxis: {
-      categories: Object.keys(mockTeamStatistics.goals.for.minute),
+      categories: Object.keys(teamStatistics.goals.for.minute),
     },
     colors: [vars.color.green],
   };
@@ -20,7 +22,7 @@ export default function TeamStatistics() {
   const series = [
     {
       name: 'gols',
-      data: Object.values(mockTeamStatistics.goals.for.minute).map(
+      data: Object.values(teamStatistics.goals.for.minute).map(
         (item) => item.total
       ),
     },
@@ -32,7 +34,7 @@ export default function TeamStatistics() {
         <Title>Jogadores</Title>
 
         <S.PlayerWrapper>
-          {mockPlayers.map(({ player }) => (
+          {players.map(({ player }) => (
             <Player key={player.id} player={player} />
           ))}
         </S.PlayerWrapper>
@@ -40,12 +42,19 @@ export default function TeamStatistics() {
 
       <div>
         <Title>Formação mais utilizada</Title>
-        <p>
-          A formação mais jogada é: {mockTeamStatistics.lineups[0].formation}.
-        </p>
-        <p>
-          A formação foi utilizada {mockTeamStatistics.lineups[0].played} vezes
-        </p>
+
+        {teamStatistics.lineups[0] ? (
+          <>
+            <p>
+              A formação mais jogada é: {teamStatistics.lineups[0].formation}.
+            </p>
+            <p>
+              A formação foi utilizada {teamStatistics.lineups[0].played} vezes
+            </p>
+          </>
+        ) : (
+          <p>Informação indisponível para este time.</p>
+        )}
       </div>
 
       <div>
@@ -62,10 +71,10 @@ export default function TeamStatistics() {
             </thead>
             <tbody>
               <tr>
-                <td>{mockTeamStatistics.fixtures.played.total}</td>
-                <td>{mockTeamStatistics.fixtures.wins.total}</td>
-                <td>{mockTeamStatistics.fixtures.loses.total}</td>
-                <td>{mockTeamStatistics.fixtures.draws.total}</td>
+                <td>{teamStatistics.fixtures.played.total}</td>
+                <td>{teamStatistics.fixtures.wins.total}</td>
+                <td>{teamStatistics.fixtures.loses.total}</td>
+                <td>{teamStatistics.fixtures.draws.total}</td>
               </tr>
             </tbody>
           </table>
