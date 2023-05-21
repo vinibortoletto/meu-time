@@ -10,9 +10,9 @@ export const Header = styled.header`
 `;
 
 export const Title = styled.h1`
-  font-family: 'Permanent Marker', cursive;
+  font-family: 'Damion', cursive;
   color: ${vars.color.green};
-  font-size: 1.5rem;
+  font-size: 2rem;
 `;
 
 export const Logo = styled.img`
