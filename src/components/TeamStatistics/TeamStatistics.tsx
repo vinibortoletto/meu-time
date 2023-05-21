@@ -3,6 +3,7 @@ import { vars } from '../../styles/variables';
 import { mockPlayers } from '../../tests/mocks';
 import { mockTeamStatistics } from '../../tests/mocks/teamStatistics.mock';
 import { Player } from '../Player';
+import * as S from './TeamStatistics.styles';
 
 export default function TeamStatistics() {
   const options = {
@@ -66,10 +67,10 @@ export default function TeamStatistics() {
         </table>
       </div>
 
-      <div>
+      <S.Chart>
         <h2>Gols por tempo de jogo</h2>
-        <Chart options={options} series={series} type="bar" width="500" />
-      </div>
+        <Chart options={options} series={series} type="bar" />
+      </S.Chart>
     </section>
   );
 }
