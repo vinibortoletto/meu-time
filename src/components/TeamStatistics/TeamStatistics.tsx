@@ -27,13 +27,15 @@ export default function TeamStatistics() {
   ];
 
   return (
-    <section>
+    <S.Container>
       <div>
         <Title>Jogadores</Title>
 
-        {mockPlayers.map(({ player }) => (
-          <Player key={player.id} player={player} />
-        ))}
+        <S.PlayerWrapper>
+          {mockPlayers.map(({ player }) => (
+            <Player key={player.id} player={player} />
+          ))}
+        </S.PlayerWrapper>
       </div>
 
       <div>
@@ -69,9 +71,9 @@ export default function TeamStatistics() {
       </div>
 
       <S.Chart>
-        <h2>Gols por tempo de jogo</h2>
+        <Title>Gols por tempo de jogo</Title>
         <Chart options={options} series={series} type="bar" />
       </S.Chart>
-    </section>
+    </S.Container>
   );
 }

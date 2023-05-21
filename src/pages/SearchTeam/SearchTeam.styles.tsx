@@ -6,6 +6,7 @@ export const Form = styled.form`
   display: flex;
   gap: 0.5rem;
   flex-direction: column;
+  margin-bottom: 3rem;
 
   button {
     width: 100%;
