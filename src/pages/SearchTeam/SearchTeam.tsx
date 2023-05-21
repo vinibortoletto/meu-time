@@ -4,6 +4,7 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useState,
 } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Button } from '../../components/Button';
@@ -44,6 +45,7 @@ export default function SearchTeam() {
     teamStatistics,
   } = useContext(FootballContext);
   const history = useHistory();
+  const [showTeamStatistics, setShowTeamStatistics] = useState(false);
 
   const handleSeasonChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const season = Number(e.target.value);
@@ -72,6 +74,7 @@ export default function SearchTeam() {
     e.preventDefault();
     getTeamStatistics(team);
     getPlayers();
+    setShowTeamStatistics(true);
 
     setCountry('');
     setSeason(0);
@@ -178,7 +181,7 @@ export default function SearchTeam() {
 
       {isLoading && <Loading />}
 
-      {(players.length > 0 || teamStatistics) && <TeamStatistics />}
+      {showTeamStatistics && !isLoading && <TeamStatistics />}
     </div>
   );
 }
