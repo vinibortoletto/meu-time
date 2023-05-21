@@ -5,15 +5,17 @@ import React, {
   useMemo,
   useState,
 } from 'react';
-import { ICountry, IResponse, ITeam } from '../interfaces';
+import { ICountry, IPlayerStatistics, IResponse, ITeam } from '../interfaces';
 import ILeague from '../interfaces/ILeague';
 import ITeamStatistics from '../interfaces/ITeamStatistics';
 import { fetchFootballData } from '../utils';
 import {
   fetchLeagueByCountryAndSeason,
+  fetchPlayers,
   fetchTeamStatistics,
   fetchTeams,
 } from '../utils/fetchFootballData';
+import { defaultTeamStatistics } from './defaultValues/defaultTeamStatistics';
 
 interface IProps {
   children: React.ReactNode;
@@ -42,9 +44,18 @@ interface IContext {
   setTeams: (teams: ITeam[]) => void;
   team: number;
   setTeam: (team: number) => void;
-  teamStatistics: ITeamStatistics | undefined;
+  teamStatistics: ITeamStatistics;
   setTeamStatistics: (teamStatistics: ITeamStatistics) => void;
   getTeamStatistics: (team: number) => void;
+  getPlayers: () => void;
+  players: IPlayerStatistics[];
+  setPlayers: (players: IPlayerStatistics[]) => void;
+  isLoading: boolean;
+  setIsLoading: (isLoading: boolean) => void;
+  getLocalTeamStatistics: () => void;
+  getLocalPlayers: () => void;
+  getLocalLeagues: () => void;
+  getLocalTeams: () => void;
 }
 
 const defaultContext: IContext = {
@@ -70,9 +81,18 @@ const defaultContext: IContext = {
   setTeams: () => {},
   team: 0,
   setTeam: () => {},
-  teamStatistics: undefined,
+  teamStatistics: defaultTeamStatistics,
   setTeamStatistics: () => {},
   getTeamStatistics: () => {},
+  getPlayers: () => {},
+  players: [],
+  setPlayers: () => {},
+  isLoading: false,
+  setIsLoading: () => {},
+  getLocalTeamStatistics: () => {},
+  getLocalPlayers: () => {},
+  getLocalLeagues: () => {},
+  getLocalTeams: () => {},
 };
 
 export const FootballContext = createContext<IContext>(defaultContext);
@@ -87,7 +107,11 @@ export function FootballProvider({ children }: IProps) {
   const [apiKey, setApiKey] = useState('');
   const [teams, setTeams] = useState<ITeam[]>([]);
   const [team, setTeam] = useState(0);
-  const [teamStatistics, setTeamStatistics] = useState<ITeamStatistics>();
+  const [teamStatistics, setTeamStatistics] = useState<ITeamStatistics>(
+    defaultTeamStatistics
+  );
+  const [players, setPlayers] = useState<IPlayerStatistics[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const getLocalKey = useCallback(() => {
     let localKey = localStorage.getItem('key');
@@ -133,14 +157,23 @@ export function FootballProvider({ children }: IProps) {
         await fetchLeagueByCountryAndSeason(apiKey, country, season);
 
       const newLeagues = response?.data.response;
+      localStorage.setItem('leagues', JSON.stringify(newLeagues));
       setLeagues(newLeagues as unknown as ILeague[]);
     },
     [apiKey, country]
   );
 
-  // useEffect(() => {
-  //   getLocalKey();
-  // }, [getLocalKey]);
+  const getLocalLeagues = useCallback(() => {
+    const localLeagues = JSON.parse(localStorage.getItem('leagues') as string);
+
+    if (localLeagues) {
+      setLeague(localLeagues);
+    }
+  }, []);
+
+  useEffect(() => {
+    getLocalKey();
+  }, [getLocalKey]);
 
   const getTeams = useCallback(
     async (league: number) => {
@@ -152,10 +185,19 @@ export function FootballProvider({ children }: IProps) {
       );
 
       const newTeams = response?.data.response;
+      localStorage.setItem('teams', JSON.stringify(newTeams));
       setTeams(newTeams as unknown as ITeam[]);
     },
     [apiKey, country, season]
   );
+
+  const getLocalTeams = useCallback(() => {
+    const localTeams = JSON.parse(localStorage.getItem('teams') as string);
+
+    if (localTeams) {
+      setTeams(localTeams);
+    }
+  }, []);
 
   const getTeamStatistics = useCallback(
     async (team: number) => {
@@ -167,10 +209,42 @@ export function FootballProvider({ children }: IProps) {
       );
 
       const newTeamStatistics = response?.data.response;
+      localStorage.setItem('teamStatistics', JSON.stringify(newTeamStatistics));
       setTeamStatistics(newTeamStatistics as unknown as ITeamStatistics);
     },
     [apiKey, season, league]
   );
+
+  const getLocalTeamStatistics = useCallback(() => {
+    const localTeamStatistics = JSON.parse(
+      localStorage.getItem('teamStatistics') as string
+    );
+
+    if (localTeamStatistics) {
+      setTeamStatistics(localTeamStatistics);
+    }
+  }, []);
+
+  const getPlayers = useCallback(async () => {
+    const response: IResponse | undefined = await fetchPlayers(
+      apiKey,
+      season,
+      league,
+      team
+    );
+
+    const newPlayers = response?.data.response;
+    localStorage.setItem('players', JSON.stringify(newPlayers));
+    setPlayers(newPlayers as unknown as IPlayerStatistics[]);
+  }, [apiKey, season, league, team]);
+
+  const getLocalPlayers = useCallback(() => {
+    const localPlayers = JSON.parse(localStorage.getItem('players') as string);
+
+    if (localPlayers) {
+      setPlayers(localPlayers);
+    }
+  }, []);
 
   const value: IContext = useMemo(
     () => ({
@@ -199,6 +273,15 @@ export function FootballProvider({ children }: IProps) {
       teamStatistics,
       setTeamStatistics,
       getTeamStatistics,
+      getPlayers,
+      players,
+      setPlayers,
+      isLoading,
+      setIsLoading,
+      getLocalTeams,
+      getLocalTeamStatistics,
+      getLocalPlayers,
+      getLocalLeagues,
     }),
     [
       countries,
@@ -226,6 +309,15 @@ export function FootballProvider({ children }: IProps) {
       teamStatistics,
       setTeamStatistics,
       getTeamStatistics,
+      getPlayers,
+      players,
+      setPlayers,
+      isLoading,
+      setIsLoading,
+      getLocalTeamStatistics,
+      getLocalPlayers,
+      getLocalLeagues,
+      getLocalTeams,
     ]
   );
 

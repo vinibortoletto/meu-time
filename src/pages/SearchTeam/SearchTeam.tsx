@@ -4,6 +4,7 @@ import {
   SyntheticEvent,
   useContext,
   useEffect,
+  useState,
 } from 'react';
 import { Button } from '../../components/Button';
 import { Header } from '../../components/Header';
@@ -34,7 +35,14 @@ export default function SearchTeam() {
     team,
     setTeam,
     getTeamStatistics,
+    getPlayers,
+    players,
+    getLocalLeagues,
+    getLocalTeams,
+    getLocalPlayers,
+    getLocalTeamStatistics,
   } = useContext(FootballContext);
+  const [showTeamStatistics, setShowTeamStatistics] = useState(false);
 
   const handleSeasonChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const season = Number(e.target.value);
@@ -57,18 +65,30 @@ export default function SearchTeam() {
     const teamId = teams.find(({ team }) => team.name === teamName)?.team.id;
 
     if (teamId) setTeam(teamId);
-    console.log(teamId);
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     getTeamStatistics(team);
+    getPlayers();
+    setShowTeamStatistics(true);
   };
 
-  // useEffect(() => {
-  //   getLocalCountries();
-  //   getLocalSeasons();
-  // }, [getLocalCountries, getLocalSeasons, getTeams]);
+  useEffect(() => {
+    getLocalCountries();
+    getLocalSeasons();
+    getLocalLeagues();
+    getLocalTeams();
+    getLocalPlayers();
+    getLocalTeamStatistics();
+  }, [
+    getLocalCountries,
+    getLocalSeasons,
+    getLocalLeagues,
+    getLocalTeams,
+    getLocalPlayers,
+    getLocalTeamStatistics,
+  ]);
 
   return (
     <div>
@@ -83,7 +103,7 @@ export default function SearchTeam() {
         >
           <option>País</option>
 
-          {mockCountries.map((country: ICountry) => (
+          {countries.map((country: ICountry) => (
             <option key={country.name} value={country.name}>
               {country.name}
             </option>
@@ -99,7 +119,7 @@ export default function SearchTeam() {
         >
           <option>Temporada</option>
 
-          {mockSeasons.map((season: number) => (
+          {seasons.map((season: number) => (
             <option key={season} value={season}>
               {season}
             </option>
@@ -115,7 +135,7 @@ export default function SearchTeam() {
         >
           <option>Liga</option>
 
-          {mockLeagues.map(({ league }: ILeague) => (
+          {leagues.map(({ league }: ILeague) => (
             <option key={league.id} value={league.name}>
               {league.name}
             </option>
@@ -131,7 +151,7 @@ export default function SearchTeam() {
         >
           <option>Time</option>
 
-          {mockTeams.map(({ team }: ITeam) => (
+          {teams.map(({ team }: ITeam) => (
             <option key={team.name}>{team.name}</option>
           ))}
         </S.Select>
@@ -141,7 +161,7 @@ export default function SearchTeam() {
         </Button>
       </S.Form>
 
-      <TeamStatistics />
+      {players.length > 0 && <TeamStatistics />}
     </div>
   );
 }
