@@ -1,19 +1,11 @@
-import {
-  ChangeEvent,
-  FormEvent,
-  SyntheticEvent,
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
+import { ChangeEvent, FormEvent, useContext, useEffect } from 'react';
 import { Button } from '../../components/Button';
 import { Header } from '../../components/Header';
+import { Loading } from '../../components/Loading';
 import { TeamStatistics } from '../../components/TeamStatistics';
 import { FootballContext } from '../../contexts/FootballContext';
 import { ICountry, ITeam } from '../../interfaces';
 import ILeague from '../../interfaces/ILeague';
-import { mockCountries, mockLeagues, mockSeasons } from '../../tests/mocks';
-import { mockTeams } from '../../tests/mocks/teams.mock';
 import * as S from './SearchTeam.styles';
 
 export default function SearchTeam() {
@@ -41,8 +33,8 @@ export default function SearchTeam() {
     getLocalTeams,
     getLocalPlayers,
     getLocalTeamStatistics,
+    isLoading,
   } = useContext(FootballContext);
-  const [showTeamStatistics, setShowTeamStatistics] = useState(false);
 
   const handleSeasonChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const season = Number(e.target.value);
@@ -71,7 +63,6 @@ export default function SearchTeam() {
     e.preventDefault();
     getTeamStatistics(team);
     getPlayers();
-    setShowTeamStatistics(true);
   };
 
   useEffect(() => {
@@ -160,6 +151,8 @@ export default function SearchTeam() {
           Buscar time
         </Button>
       </S.Form>
+
+      {isLoading && <Loading />}
 
       {players.length > 0 && <TeamStatistics />}
     </div>
