@@ -6,6 +6,7 @@ import {
   useEffect,
 } from 'react';
 import { Button } from '../../components/Button';
+import { Header } from '../../components/Header';
 import { TeamStatistics } from '../../components/TeamStatistics';
 import { FootballContext } from '../../contexts/FootballContext';
 import { ICountry, ITeam } from '../../interfaces';
@@ -71,6 +72,8 @@ export default function SearchTeam() {
 
   return (
     <div>
+      <Header />
+
       <S.Form onSubmit={handleSubmit}>
         <S.Select
           data-testid="select-countries"
