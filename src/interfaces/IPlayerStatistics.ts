@@ -38,7 +38,7 @@ export default interface IPlayerStatistics {
       goals: {
         total: number;
         conceded: number | null;
-        assists: number | null;
+        assists: number;
         saves: number | null;
       };
       passes: {
