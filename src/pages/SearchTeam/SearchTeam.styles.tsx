@@ -23,4 +23,8 @@ export const Select = styled.select`
   background-color: transparent;
   padding: ${vars.padding.default};
   border-radius: ${vars.radius.default};
+
+  option {
+    background-color: ${vars.color.white};
+  }
 `;
