@@ -179,7 +179,12 @@ export const mockTeamStatistics = {
     total: 1,
   },
 
-  lineups: [],
+  lineups: [
+    {
+      formation: '4-2-3-1',
+      played: 32,
+    },
+  ],
 
   cards: {
     yellow: {
