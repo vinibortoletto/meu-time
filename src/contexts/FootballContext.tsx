@@ -132,6 +132,8 @@ export function FootballProvider({ children }: IProps) {
   }, []);
 
   const getSeasons = useCallback(async () => {
+    setIsLoading(true);
+
     const response: IResponse | undefined = await fetchFootballData(
       apiKey,
       'leagues/seasons'
@@ -140,6 +142,7 @@ export function FootballProvider({ children }: IProps) {
     const newSeasons = response?.data.response;
     localStorage.setItem('seasons', JSON.stringify(newSeasons));
     setSeasons(newSeasons as unknown as number[]);
+    setIsLoading(false);
   }, [apiKey]);
 
   const getLocalSeasons = useCallback(() => {
@@ -153,12 +156,15 @@ export function FootballProvider({ children }: IProps) {
 
   const getLeagues = useCallback(
     async (season: number) => {
+      setIsLoading(true);
+
       const response: IResponse | undefined =
         await fetchLeagueByCountryAndSeason(apiKey, country, season);
 
       const newLeagues = response?.data.response;
       localStorage.setItem('leagues', JSON.stringify(newLeagues));
       setLeagues(newLeagues as unknown as ILeague[]);
+      setIsLoading(false);
     },
     [apiKey, country]
   );
@@ -167,7 +173,7 @@ export function FootballProvider({ children }: IProps) {
     const localLeagues = JSON.parse(localStorage.getItem('leagues') as string);
 
     if (localLeagues) {
-      setLeague(localLeagues);
+      setLeagues(localLeagues);
     }
   }, []);
 
@@ -177,6 +183,8 @@ export function FootballProvider({ children }: IProps) {
 
   const getTeams = useCallback(
     async (league: number) => {
+      setIsLoading(true);
+
       const response: IResponse | undefined = await fetchTeams(
         apiKey,
         country,
@@ -187,6 +195,8 @@ export function FootballProvider({ children }: IProps) {
       const newTeams = response?.data.response;
       localStorage.setItem('teams', JSON.stringify(newTeams));
       setTeams(newTeams as unknown as ITeam[]);
+
+      setIsLoading(false);
     },
     [apiKey, country, season]
   );
@@ -201,6 +211,8 @@ export function FootballProvider({ children }: IProps) {
 
   const getTeamStatistics = useCallback(
     async (team: number) => {
+      setIsLoading(true);
+
       const response: IResponse | undefined = await fetchTeamStatistics(
         apiKey,
         season,
@@ -211,6 +223,8 @@ export function FootballProvider({ children }: IProps) {
       const newTeamStatistics = response?.data.response;
       localStorage.setItem('teamStatistics', JSON.stringify(newTeamStatistics));
       setTeamStatistics(newTeamStatistics as unknown as ITeamStatistics);
+
+      setIsLoading(false);
     },
     [apiKey, season, league]
   );
@@ -226,6 +240,8 @@ export function FootballProvider({ children }: IProps) {
   }, []);
 
   const getPlayers = useCallback(async () => {
+    setIsLoading(true);
+
     const response: IResponse | undefined = await fetchPlayers(
       apiKey,
       season,
@@ -236,6 +252,8 @@ export function FootballProvider({ children }: IProps) {
     const newPlayers = response?.data.response;
     localStorage.setItem('players', JSON.stringify(newPlayers));
     setPlayers(newPlayers as unknown as IPlayerStatistics[]);
+
+    setIsLoading(false);
   }, [apiKey, season, league, team]);
 
   const getLocalPlayers = useCallback(() => {
