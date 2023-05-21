@@ -1,4 +1,10 @@
-import { ChangeEvent, FormEvent, useContext, useEffect } from 'react';
+import {
+  ChangeEvent,
+  FormEvent,
+  SyntheticEvent,
+  useContext,
+  useEffect,
+} from 'react';
 import { Button } from '../../components/Button';
 import { TeamStatistics } from '../../components/TeamStatistics';
 import { FootballContext } from '../../contexts/FootballContext';
@@ -6,6 +12,7 @@ import { ICountry, ITeam } from '../../interfaces';
 import ILeague from '../../interfaces/ILeague';
 import { mockCountries, mockLeagues, mockSeasons } from '../../tests/mocks';
 import { mockTeams } from '../../tests/mocks/teams.mock';
+import * as S from './SearchTeam.styles';
 
 export default function SearchTeam() {
   const {
@@ -64,8 +71,8 @@ export default function SearchTeam() {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <select
+      <S.Form onSubmit={handleSubmit}>
+        <S.Select
           data-testid="select-countries"
           name="countries"
           onChange={(e) => setCountry(e.target.value)}
@@ -78,9 +85,9 @@ export default function SearchTeam() {
               {country.name}
             </option>
           ))}
-        </select>
+        </S.Select>
 
-        <select
+        <S.Select
           data-testid="select-seasons"
           name="seasons"
           disabled={country === ''}
@@ -94,9 +101,9 @@ export default function SearchTeam() {
               {season}
             </option>
           ))}
-        </select>
+        </S.Select>
 
-        <select
+        <S.Select
           data-testid="select-leagues"
           name="leagues"
           disabled={season === 0}
@@ -110,9 +117,9 @@ export default function SearchTeam() {
               {league.name}
             </option>
           ))}
-        </select>
+        </S.Select>
 
-        <select
+        <S.Select
           data-testid="select-teams"
           name="teams"
           disabled={league === 0}
@@ -124,12 +131,12 @@ export default function SearchTeam() {
           {mockTeams.map(({ team }: ITeam) => (
             <option key={team.name}>{team.name}</option>
           ))}
-        </select>
+        </S.Select>
 
         <Button disabled={team === 0} type="submit">
-          Buscar
+          Buscar time
         </Button>
-      </form>
+      </S.Form>
 
       <TeamStatistics />
     </div>
