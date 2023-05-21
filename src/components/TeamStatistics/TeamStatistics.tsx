@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import Chart from 'react-apexcharts';
 import { FootballContext } from '../../contexts/FootballContext';
 import { vars } from '../../styles/variables';
@@ -8,6 +8,7 @@ import * as S from './TeamStatistics.styles';
 
 export default function TeamStatistics() {
   const { players, teamStatistics } = useContext(FootballContext);
+  const errorMessage = <p>Informações indisponíveis para esse time.</p>;
 
   const options = {
     chart: {
@@ -33,11 +34,15 @@ export default function TeamStatistics() {
       <div>
         <Title>Jogadores</Title>
 
-        <S.PlayerWrapper>
-          {players.map(({ player }) => (
-            <Player key={player.id} player={player} />
-          ))}
-        </S.PlayerWrapper>
+        {players.length === 0 ? (
+          <p>Informações indisponíveis para esse time.</p>
+        ) : (
+          <S.PlayerWrapper>
+            {players.map(({ player }) => (
+              <Player key={player.id} player={player} />
+            ))}
+          </S.PlayerWrapper>
+        )}
       </div>
 
       <div>
@@ -59,31 +64,39 @@ export default function TeamStatistics() {
 
       <div>
         <Title>Resultados</Title>
-        <S.Table>
-          <table>
-            <thead>
-              <tr>
-                <th>Jogos</th>
-                <th>Vitórias</th>
-                <th>Derrotas</th>
-                <th>Empates</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>{teamStatistics.fixtures.played.total}</td>
-                <td>{teamStatistics.fixtures.wins.total}</td>
-                <td>{teamStatistics.fixtures.loses.total}</td>
-                <td>{teamStatistics.fixtures.draws.total}</td>
-              </tr>
-            </tbody>
-          </table>
-        </S.Table>
+        {!teamStatistics.fixtures ? (
+          <p>Informações indisponíveis para esse time.</p>
+        ) : (
+          <S.Table>
+            <table>
+              <thead>
+                <tr>
+                  <th>Jogos</th>
+                  <th>Vitórias</th>
+                  <th>Derrotas</th>
+                  <th>Empates</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{teamStatistics.fixtures.played.total}</td>
+                  <td>{teamStatistics.fixtures.wins.total}</td>
+                  <td>{teamStatistics.fixtures.loses.total}</td>
+                  <td>{teamStatistics.fixtures.draws.total}</td>
+                </tr>
+              </tbody>
+            </table>
+          </S.Table>
+        )}
       </div>
 
       <div>
         <Title>Gols por tempo de jogo</Title>
-        <Chart options={options} series={series} type="bar" />
+        {!teamStatistics.goals.for.minute ? (
+          errorMessage
+        ) : (
+          <Chart options={options} series={series} type="bar" />
+        )}
       </div>
     </S.Container>
   );
