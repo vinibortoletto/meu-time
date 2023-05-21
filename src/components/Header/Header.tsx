@@ -10,7 +10,7 @@ export default function Header() {
 
   const logout = () => {
     setApiKey('');
-    localStorage.setItem('key', '');
+    localStorage.clear();
     history.push('/');
   };
 
