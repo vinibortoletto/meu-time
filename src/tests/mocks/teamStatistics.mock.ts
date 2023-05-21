@@ -82,50 +82,50 @@ export const mockTeamStatistics = {
         },
       },
     },
-  },
-  against: {
-    total: {
-      home: 23,
-      away: 28,
-      total: 51,
-    },
-    average: {
-      home: '1.2',
-      away: '1.5',
-      total: '1.3',
-    },
-    minute: {
-      '0-15': {
-        total: 4,
-        percentage: '7.84%',
+    against: {
+      total: {
+        home: 23,
+        away: 28,
+        total: 51,
       },
-      '16-30': {
-        total: 16,
-        percentage: '31.37%',
+      average: {
+        home: '1.2',
+        away: '1.5',
+        total: '1.3',
       },
-      '31-45': {
-        total: 4,
-        percentage: '7.84%',
-      },
-      '46-60': {
-        total: 9,
-        percentage: '17.65%',
-      },
-      '61-75': {
-        total: 5,
-        percentage: '9.80%',
-      },
-      '76-90': {
-        total: 12,
-        percentage: '23.53%',
-      },
-      '91-105': {
-        total: 1,
-        percentage: '1.96%',
-      },
-      '106-120': {
-        total: null,
-        percentage: null,
+      minute: {
+        '0-15': {
+          total: 4,
+          percentage: '7.84%',
+        },
+        '16-30': {
+          total: 16,
+          percentage: '31.37%',
+        },
+        '31-45': {
+          total: 4,
+          percentage: '7.84%',
+        },
+        '46-60': {
+          total: 9,
+          percentage: '17.65%',
+        },
+        '61-75': {
+          total: 5,
+          percentage: '9.80%',
+        },
+        '76-90': {
+          total: 12,
+          percentage: '23.53%',
+        },
+        '91-105': {
+          total: 1,
+          percentage: '1.96%',
+        },
+        '106-120': {
+          total: null,
+          percentage: null,
+        },
       },
     },
   },
