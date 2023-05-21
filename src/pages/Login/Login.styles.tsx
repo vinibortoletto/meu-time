@@ -6,11 +6,16 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 50vh;
+  height: 70vh;
+`;
+
+export const Logo = styled.img`
+  width: 4rem;
 `;
 
 export const Title = styled.h1`
-  font-size: 2rem;
+  font-family: 'Damion', cursive;
+  font-size: 3rem;
   font-weight: bold;
   margin-bottom: 1rem;
   color: ${vars.color.green};

@@ -2,6 +2,7 @@ import { ICountry, IResponse } from 'interfaces';
 import { ChangeEvent, FormEvent, useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import loadingGif from '../../assets/loading.webp';
+import logo from '../../assets/logo.png';
 import { Button } from '../../components/Button';
 import { FootballContext } from '../../contexts/FootballContext';
 import { fetchFootballData } from '../../utils';
@@ -52,6 +53,7 @@ export default function Login() {
         <S.Loading src={loadingGif} alt="loading gif" />
       ) : (
         <>
+          <S.Logo src={logo} alt="bola de futebol" />
           <S.Title>Meu Time</S.Title>
 
           <S.Form onSubmit={handleSubmit}>
