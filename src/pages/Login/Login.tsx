@@ -1,9 +1,9 @@
 import { ICountry, IResponse } from 'interfaces';
 import { ChangeEvent, FormEvent, useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import loadingGif from '../../assets/loading.webp';
 import logo from '../../assets/logo.png';
 import { Button } from '../../components/Button';
+import { Loading } from '../../components/Loading';
 import { FootballContext } from '../../contexts/FootballContext';
 import { fetchFootballData } from '../../utils';
 import * as S from './Login.styles';
@@ -50,7 +50,7 @@ export default function Login() {
   return (
     <S.Container>
       {isLoading ? (
-        <S.Loading src={loadingGif} alt="loading gif" />
+        <Loading />
       ) : (
         <>
           <S.Logo src={logo} alt="bola de futebol" />
