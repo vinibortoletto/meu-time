@@ -15,14 +15,6 @@ export const PlayerWrapper = styled.div`
   gap: 1rem;
 `;
 
-export const Chart = styled.div`
-  max-width: 40rem;
-
-  & > div:first-child {
-    width: 300px;
-  }
-`;
-
 export const Table = styled.div`
   overflow-x: auto;
   border: 1px solid ${vars.color.grey};

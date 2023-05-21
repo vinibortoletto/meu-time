@@ -72,10 +72,10 @@ export default function TeamStatistics() {
         </S.Table>
       </div>
 
-      <S.Chart>
+      <div>
         <Title>Gols por tempo de jogo</Title>
         <Chart options={options} series={series} type="bar" />
-      </S.Chart>
+      </div>
     </S.Container>
   );
 }
