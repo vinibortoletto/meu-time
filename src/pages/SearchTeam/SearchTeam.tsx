@@ -63,6 +63,11 @@ export default function SearchTeam() {
     e.preventDefault();
     getTeamStatistics(team);
     getPlayers();
+
+    setCountry('');
+    setSeason(0);
+    setLeague(0);
+    setTeam(0);
   };
 
   useEffect(() => {
@@ -154,7 +159,11 @@ export default function SearchTeam() {
 
       {isLoading && <Loading />}
 
-      {players.length > 0 && <TeamStatistics />}
+      {players.length > 0 ? (
+        <TeamStatistics />
+      ) : (
+        <p>Informações indisponíveis para esse time.</p>
+      )}
     </div>
   );
 }
