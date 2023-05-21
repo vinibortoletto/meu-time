@@ -3,6 +3,7 @@ import { vars } from '../../styles/variables';
 import { mockPlayers } from '../../tests/mocks';
 import { mockTeamStatistics } from '../../tests/mocks/teamStatistics.mock';
 import { Player } from '../Player';
+import { Title } from '../Title';
 import * as S from './TeamStatistics.styles';
 
 export default function TeamStatistics() {
@@ -28,7 +29,7 @@ export default function TeamStatistics() {
   return (
     <section>
       <div>
-        <h2>Jogadores</h2>
+        <Title>Jogadores</Title>
 
         {mockPlayers.map(({ player }) => (
           <Player key={player.id} player={player} />
@@ -36,7 +37,7 @@ export default function TeamStatistics() {
       </div>
 
       <div>
-        <h2>Formação mais utilizada</h2>
+        <Title>Formação mais utilizada</Title>
         <p>
           A formação mais jogada é: {mockTeamStatistics.lineups[0].formation}.
         </p>
@@ -46,7 +47,7 @@ export default function TeamStatistics() {
       </div>
 
       <div>
-        <h2>Resultados</h2>
+        <Title>Resultados</Title>
         <table>
           <thead>
             <tr>
