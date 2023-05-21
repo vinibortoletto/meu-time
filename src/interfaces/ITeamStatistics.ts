@@ -1,3 +1,8 @@
+interface ILineup {
+  formation: string;
+  played: number;
+}
+
 export default interface ITeamStatistics {
   league: {
     id: number;
@@ -175,7 +180,7 @@ export default interface ITeamStatistics {
     };
     total: number;
   };
-  lineups: any[];
+  lineups: ILineup[];
   cards: {
     yellow: {
       '0-15': {
