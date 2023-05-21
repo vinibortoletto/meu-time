@@ -36,13 +36,11 @@ export default function SearchTeam() {
     setTeam,
     getTeamStatistics,
     getPlayers,
-    players,
     getLocalLeagues,
     getLocalTeams,
     getLocalPlayers,
     getLocalTeamStatistics,
     isLoading,
-    teamStatistics,
   } = useContext(FootballContext);
   const history = useHistory();
   const [showTeamStatistics, setShowTeamStatistics] = useState(false);

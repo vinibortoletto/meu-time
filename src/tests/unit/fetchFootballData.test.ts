@@ -1,9 +1,6 @@
 import axios from 'axios';
 import { fetchFootballData } from '../../utils';
-import {
-  invalidKeyResponse,
-  validKeyResponse,
-} from '../mocks/fetchFootballData.mock';
+import { invalidKeyResponse } from '../mocks/fetchFootballData.mock';
 
 jest.mock('axios');
 
