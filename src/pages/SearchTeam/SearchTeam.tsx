@@ -41,6 +41,7 @@ export default function SearchTeam() {
     getLocalPlayers,
     getLocalTeamStatistics,
     isLoading,
+    teamStatistics,
   } = useContext(FootballContext);
   const history = useHistory();
 
@@ -177,11 +178,7 @@ export default function SearchTeam() {
 
       {isLoading && <Loading />}
 
-      {players.length > 0 ? (
-        <TeamStatistics />
-      ) : (
-        <p>Informações indisponíveis para esse time.</p>
-      )}
+      {(players.length > 0 || teamStatistics) && <TeamStatistics />}
     </div>
   );
 }
