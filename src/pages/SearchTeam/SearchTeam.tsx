@@ -87,6 +87,12 @@ export default function SearchTeam() {
     getLocalTeams();
     getLocalPlayers();
     getLocalTeamStatistics();
+
+    const localTeamStatistics = JSON.parse(
+      localStorage.getItem('teamStatistics') as string
+    );
+
+    if (localTeamStatistics) setShowTeamStatistics(true);
   }, [
     getLocalCountries,
     getLocalSeasons,
