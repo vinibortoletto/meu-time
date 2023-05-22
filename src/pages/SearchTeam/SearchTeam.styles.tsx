@@ -4,8 +4,8 @@ import { vars } from '../../styles/variables';
 
 export const Form = styled.form`
   display: flex;
-  gap: 0.5rem;
   flex-direction: column;
+  gap: 0.5rem;
   margin-bottom: 3rem;
 
   button {
@@ -14,8 +14,10 @@ export const Form = styled.form`
   }
 
   @media ${breakpoint('700')} {
-    flex-direction: row;
-    justify-content: center;
+    max-width: 50rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(5rem, 1fr));
+    margin: 0 auto 3rem auto;
   }
 `;
 
