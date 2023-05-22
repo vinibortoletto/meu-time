@@ -5,11 +5,12 @@ import { FootballContext } from '../../contexts/FootballContext';
 import * as S from './Header.styles';
 
 export default function Header() {
-  const { setApiKey } = useContext(FootballContext);
+  const { setApiKey, setIsLogged } = useContext(FootballContext);
   const history = useHistory();
 
   const logout = () => {
     setApiKey('');
+    setIsLogged(false);
     localStorage.clear();
     history.push('/');
   };

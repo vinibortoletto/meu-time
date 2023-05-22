@@ -11,7 +11,8 @@ import * as S from './Login.styles';
 export default function Login() {
   const [errorMessage, setErrorMessage] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const { apiKey, setApiKey, getSeasons } = useContext(FootballContext);
+  const { apiKey, setApiKey, getSeasons, isLogged } =
+    useContext(FootballContext);
 
   const history = useHistory();
   const { setCountries } = useContext(FootballContext);
@@ -47,7 +48,7 @@ export default function Login() {
     history.push('/busca-time');
   };
 
-  if (apiKey) return <Redirect to="/busca-time" />;
+  if (isLogged) return <Redirect to="/busca-time" />;
 
   return (
     <S.Container>

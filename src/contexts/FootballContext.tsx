@@ -56,6 +56,8 @@ interface IContext {
   getLocalPlayers: () => void;
   getLocalLeagues: () => void;
   getLocalTeams: () => void;
+  isLogged: boolean;
+  setIsLogged: (isLogged: boolean) => void;
 }
 
 const defaultContext: IContext = {
@@ -93,6 +95,8 @@ const defaultContext: IContext = {
   getLocalPlayers: () => {},
   getLocalLeagues: () => {},
   getLocalTeams: () => {},
+  isLogged: false,
+  setIsLogged: () => {},
 };
 
 export const FootballContext = createContext<IContext>(defaultContext);
@@ -112,6 +116,7 @@ export function FootballProvider({ children }: IProps) {
   );
   const [players, setPlayers] = useState<IPlayerStatistics[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isLogged, setIsLogged] = useState(false);
 
   const getLocalKey = useCallback(() => {
     let localKey = localStorage.getItem('key');
@@ -119,6 +124,7 @@ export function FootballProvider({ children }: IProps) {
     if (localKey) {
       localKey = JSON.parse(localKey);
       setApiKey(localKey as unknown as string);
+      setIsLogged(true);
     }
   }, []);
 
@@ -300,6 +306,8 @@ export function FootballProvider({ children }: IProps) {
       getLocalTeamStatistics,
       getLocalPlayers,
       getLocalLeagues,
+      isLogged,
+      setIsLogged,
     }),
     [
       countries,
@@ -336,6 +344,8 @@ export function FootballProvider({ children }: IProps) {
       getLocalPlayers,
       getLocalLeagues,
       getLocalTeams,
+      isLogged,
+      setIsLogged,
     ]
   );
 
