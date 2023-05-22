@@ -33,6 +33,7 @@ Esse projeto foi desenvolvido usando as seguintes tecnologias:
 -  TypeScript
 -  Jest
 -  React Router
+-  Docker e Docker Compose
 -  ESLint
 -  Prettier
 -  Styled Components
