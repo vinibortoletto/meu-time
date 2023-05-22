@@ -1,0 +1,43 @@
+import { IContext } from '../../interfaces';
+import defaultTeamStatistics from './defaultTeamStatistics';
+
+const defaultContext: IContext = {
+  countries: [],
+  setCountries: () => {},
+  country: '',
+  setCountry: () => {},
+  apiKey: '',
+  setApiKey: () => {},
+  getSeasons: () => {},
+  seasons: [],
+  season: 0,
+  setSeason: () => {},
+  getLocalCountries: () => {},
+  getLocalSeasons: () => {},
+  getLeagues: () => {},
+  leagues: [],
+  setLeagues: () => {},
+  league: 0,
+  setLeague: () => {},
+  getTeams: () => {},
+  teams: [],
+  setTeams: () => {},
+  team: 0,
+  setTeam: () => {},
+  teamStatistics: defaultTeamStatistics,
+  setTeamStatistics: () => {},
+  getTeamStatistics: () => {},
+  getPlayers: () => {},
+  players: [],
+  setPlayers: () => {},
+  isLoading: false,
+  setIsLoading: () => {},
+  getLocalTeamStatistics: () => {},
+  getLocalPlayers: () => {},
+  getLocalLeagues: () => {},
+  getLocalTeams: () => {},
+  isLogged: false,
+  setIsLogged: () => {},
+};
+
+export default defaultContext;

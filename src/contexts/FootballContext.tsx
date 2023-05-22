@@ -5,7 +5,13 @@ import React, {
   useMemo,
   useState,
 } from 'react';
-import { ICountry, IPlayerStatistics, IResponse, ITeam } from '../interfaces';
+import {
+  IContext,
+  ICountry,
+  IPlayerStatistics,
+  IResponse,
+  ITeam,
+} from '../interfaces';
 import ILeague from '../interfaces/ILeague';
 import ITeamStatistics from '../interfaces/ITeamStatistics';
 import { fetchFootballData } from '../utils';
@@ -15,89 +21,11 @@ import {
   fetchTeamStatistics,
   fetchTeams,
 } from '../utils/fetchFootballData';
-import { defaultTeamStatistics } from './defaultValues/defaultTeamStatistics';
+import { defaultContext, defaultTeamStatistics } from './defaultValues';
 
 interface IProps {
   children: React.ReactNode;
 }
-
-interface IContext {
-  countries: ICountry[];
-  country: string;
-  setCountry: (country: string) => void;
-  setCountries: (countries: ICountry[]) => void;
-  apiKey: string;
-  setApiKey: (apiKey: string) => void;
-  getSeasons: () => void;
-  seasons: number[];
-  season: number;
-  setSeason: (season: number) => void;
-  getLocalCountries: () => void;
-  getLocalSeasons: () => void;
-  getLeagues: (season: number) => void;
-  leagues: ILeague[];
-  setLeagues: (leagues: ILeague[]) => void;
-  league: number;
-  setLeague: (league: number) => void;
-  getTeams: (league: number) => void;
-  teams: ITeam[];
-  setTeams: (teams: ITeam[]) => void;
-  team: number;
-  setTeam: (team: number) => void;
-  teamStatistics: ITeamStatistics;
-  setTeamStatistics: (teamStatistics: ITeamStatistics) => void;
-  getTeamStatistics: (team: number) => void;
-  getPlayers: () => void;
-  players: IPlayerStatistics[];
-  setPlayers: (players: IPlayerStatistics[]) => void;
-  isLoading: boolean;
-  setIsLoading: (isLoading: boolean) => void;
-  getLocalTeamStatistics: () => void;
-  getLocalPlayers: () => void;
-  getLocalLeagues: () => void;
-  getLocalTeams: () => void;
-  isLogged: boolean;
-  setIsLogged: (isLogged: boolean) => void;
-}
-
-const defaultContext: IContext = {
-  countries: [],
-  setCountries: () => {},
-  country: '',
-  setCountry: () => {},
-  apiKey: '',
-  setApiKey: () => {},
-  getSeasons: () => {},
-  seasons: [],
-  season: 0,
-  setSeason: () => {},
-  getLocalCountries: () => {},
-  getLocalSeasons: () => {},
-  getLeagues: () => {},
-  leagues: [],
-  setLeagues: () => {},
-  league: 0,
-  setLeague: () => {},
-  getTeams: () => {},
-  teams: [],
-  setTeams: () => {},
-  team: 0,
-  setTeam: () => {},
-  teamStatistics: defaultTeamStatistics,
-  setTeamStatistics: () => {},
-  getTeamStatistics: () => {},
-  getPlayers: () => {},
-  players: [],
-  setPlayers: () => {},
-  isLoading: false,
-  setIsLoading: () => {},
-  getLocalTeamStatistics: () => {},
-  getLocalPlayers: () => {},
-  getLocalLeagues: () => {},
-  getLocalTeams: () => {},
-  isLogged: false,
-  setIsLogged: () => {},
-};
 
 export const FootballContext = createContext<IContext>(defaultContext);
 

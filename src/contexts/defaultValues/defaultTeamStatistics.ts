@@ -1,6 +1,6 @@
 import ITeamStatistics from '../../interfaces/ITeamStatistics';
 
-export const defaultTeamStatistics: ITeamStatistics = {
+const defaultTeamStatistics: ITeamStatistics = {
   league: { id: 0, name: '', country: '', logo: '', flag: '', season: 0 },
   team: { id: 0, name: '', logo: '' },
   form: '',
@@ -173,3 +173,5 @@ export const defaultTeamStatistics: ITeamStatistics = {
     },
   },
 };
+
+export default defaultTeamStatistics;

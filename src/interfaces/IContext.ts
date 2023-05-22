@@ -1,0 +1,44 @@
+import ICountry from './ICountry';
+import ILeague from './ILeague';
+import IPlayerStatistics from './IPlayerStatistics';
+import ITeam from './ITeam';
+import ITeamStatistics from './ITeamStatistics';
+
+export default interface IContext {
+  countries: ICountry[];
+  country: string;
+  setCountry: (country: string) => void;
+  setCountries: (countries: ICountry[]) => void;
+  apiKey: string;
+  setApiKey: (apiKey: string) => void;
+  getSeasons: () => void;
+  seasons: number[];
+  season: number;
+  setSeason: (season: number) => void;
+  getLocalCountries: () => void;
+  getLocalSeasons: () => void;
+  getLeagues: (season: number) => void;
+  leagues: ILeague[];
+  setLeagues: (leagues: ILeague[]) => void;
+  league: number;
+  setLeague: (league: number) => void;
+  getTeams: (league: number) => void;
+  teams: ITeam[];
+  setTeams: (teams: ITeam[]) => void;
+  team: number;
+  setTeam: (team: number) => void;
+  teamStatistics: ITeamStatistics;
+  setTeamStatistics: (teamStatistics: ITeamStatistics) => void;
+  getTeamStatistics: (team: number) => void;
+  getPlayers: () => void;
+  players: IPlayerStatistics[];
+  setPlayers: (players: IPlayerStatistics[]) => void;
+  isLoading: boolean;
+  setIsLoading: (isLoading: boolean) => void;
+  getLocalTeamStatistics: () => void;
+  getLocalPlayers: () => void;
+  getLocalLeagues: () => void;
+  getLocalTeams: () => void;
+  isLogged: boolean;
+  setIsLogged: (isLogged: boolean) => void;
+}
