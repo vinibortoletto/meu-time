@@ -1,6 +1,6 @@
 import { ICountry, IResponse } from 'interfaces';
 import { ChangeEvent, FormEvent, useContext, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import logo from '../../assets/logo.png';
 import { Button } from '../../components/Button';
 import { Loading } from '../../components/Loading';
@@ -46,6 +46,8 @@ export default function Login() {
     setCountries(newCountries as ICountry[]);
     history.push('/busca-time');
   };
+
+  if (apiKey) return <Redirect to="/busca-time" />;
 
   return (
     <S.Container>

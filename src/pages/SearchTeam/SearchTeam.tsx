@@ -96,15 +96,9 @@ export default function SearchTeam() {
     getLocalTeamStatistics,
   ]);
 
-  const redirectUserIfNotLogged = useCallback(() => {
-    const localApiKey = localStorage.getItem('key');
-    if (!localApiKey) history.push('/');
-  }, [history]);
-
   useEffect(() => {
     getLocalData();
-    redirectUserIfNotLogged();
-  }, [getLocalData, redirectUserIfNotLogged]);
+  }, [getLocalData]);
 
   return (
     <div>
